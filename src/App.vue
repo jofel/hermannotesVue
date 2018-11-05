@@ -15,12 +15,14 @@
           v-for="(item, i) in items"
           :key="i"
         >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
+          <btn @click="onItem(item)">
+            <v-list-tile-action>
+              <v-icon v-html="item.icon"></v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="item.title"></v-list-tile-title>
+            </v-list-tile-content>
+          </btn>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -83,22 +85,28 @@ export default {
       fixed: false,
       items: [
         { icon: 'people',
-          title: 'Jelenlévők'
+          title: 'Jelenlévők',
+          route: 'jelenlevok'
         },
         { icon: 'today',
-          title: 'Programok'
+          title: 'Programok',
+          route: 'programok'
         },
         { icon: 'description',
-          title: 'Kérvények'
+          title: 'Kérvények',
+          route: 'kervenyek'
         },
         { icon: 'add_box',
-          title: 'Egyéb'
+          title: 'Egyéb',
+          route: 'egyeb'
         },
         { icon: 'next_week',
-          title: 'Következő ülés'
+          title: 'Következő ülés',
+          route: 'kovetkezo'
         },
         { icon: 'send',
-          title: 'Exportálás'
+          title: 'Exportálás',
+          route: 'exportalas'
         }
       ],
       miniVariant: true,
