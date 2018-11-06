@@ -4,6 +4,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuex from 'vuex'
+import getters from './getters'
+import mutations from './mutations'
 
 Vue.use(Vuex)
 const imgURL = 'https://randomuser.me/api/portraits/'
@@ -27,40 +29,6 @@ export const store = new Vuex.Store({
       { name: 'Fodor József Felicián', present: false, status: 'senior', img: imgURL, gender: 'men'}
     ]
   },
-  getters: {
-    isAllKBMembersChecked (state) {
-      return state.isAllKBMembersChecked
-    },
-    isAllSeniorMembersChecked (state) {
-      return state.isAllSeniorMembersChecked
-    },
-    KBMembers (state) {
-      return state.users.filter(user => {
-        return user.status === 'KB'
-      })
-    },
-    seniorMembers (state) {
-      return state.users.filter(user => {
-        return user.status === 'senior'
-      })
-    }
-  },
-  mutations: {
-    checkAllKBMembers (state) {
-      state.isAllKBMembersChecked = !state.isAllKBMembersChecked
-      state.users.forEach(user => {
-        if (user.status === 'KB') {
-          user.present = state.isAllKBMembersChecked
-        }
-      })
-    },
-    checkAllSeniorMembers (state) {
-      state.isAllSeniorMembersChecked = !state.isAllSeniorMembersChecked
-      state.users.forEach(user => {
-        if (user.status === 'senior') {
-          user.present = state.isAllSeniorMembersChecked
-        }
-      })
-    }
-  }
+  getters,
+  mutations
 })
