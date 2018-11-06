@@ -31,7 +31,7 @@
             <v-spacer></v-spacer>
 
             <v-btn icon>
-              <v-icon :class="{'blue_lighten-3--text': checkAllKBMembers}" @click="onCheckAllKBMemmbers">{{checkAllKBMembers ? "reply_all" : "done_all"}}</v-icon>
+              <v-icon :class="{'blue_lighten-3--text': isAllKBMembersChecked}" @click="onCheckAllKBMembers">{{isAllKBMembersChecked ? "reply_all" : "done_all"}}</v-icon>
             </v-btn>
 
           </v-toolbar>
@@ -40,7 +40,7 @@
             
           <v-card-text>
              <v-layout xs2 justify-start row wrap>
-                <v-flex xs12 sm6 md4 lg3 v-for="(member, index) in kbMembers" :index="index" :key="member.name">
+                <v-flex xs12 sm6 md4 lg3 v-for="(member, index) in KBMembers" :index="index" :key="member.name">
                   <v-chip :class="[{'blue-grey lighten-4': member.present},{'grey lighten-1': !member.present}]"  @click="member.present = !member.present">
                     <v-avatar>
                       <v-img 
@@ -76,7 +76,7 @@
             <v-spacer></v-spacer>
 
             <v-btn icon>
-              <v-icon :class="{'blue_lighten-3--text': checkAllSeniorMemmbers}" @click="onCheckAllSeniorMemmbers">{{checkAllSeniorMemmbers ? "reply_all" : "done_all"}}</v-icon>
+              <v-icon :class="{'blue_lighten-3--text': isAllSeniorMembersChecked}" @click="onCheckAllSeniorMembers">{{isAllSeniorMembersChecked ? "reply_all" : "done_all"}}</v-icon>
             </v-btn>
 
           </v-toolbar>
@@ -85,19 +85,17 @@
 
           <v-card-text>
             <v-layout xs2 justify-start row wrap>
-              <v-layout xs12 sm6 md4 lg3 v-for="(member, index) in seniorMembers" :key="member.name">
-                <v-flex>
-                  <v-chip :class="[{'blue-grey lighten-4': member.present},{'grey lighten-1': !member.present}]" @click="member.present = !member.present">
-                    <v-avatar>
-                      <v-img 
-                        :gradient="!member.present ? 'to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)' : ''"
-                        :src="member.img + member.gender + '\\1' +  index + '.jpg'" alt="trevor">
-                      </v-img>
-                    </v-avatar>
-                    {{ member.name }}
-                  </v-chip>
-                </v-flex>
-              </v-layout>
+              <v-flex xs12 sm6 md4 lg3 v-for="(member, index) in seniorMembers" :key="member.name">
+                <v-chip :class="[{'blue-grey lighten-4': member.present},{'grey lighten-1': !member.present}]" @click="member.present = !member.present">
+                  <v-avatar>
+                    <v-img 
+                      :gradient="!member.present ? 'to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)' : ''"
+                      :src="member.img + member.gender + '\\1' +  index + '.jpg'" alt="trevor">
+                    </v-img>
+                  </v-avatar>
+                  {{ member.name }}
+                </v-chip>
+              </v-flex>
             </v-layout>
           </v-card-text>
           <!-- <v-btn
@@ -126,101 +124,21 @@
 </style>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      checkAllKBMembers: false,
-      checkAllSeniorMemmbers: false,
-      kbMembers: [
-        {
-          name: 'Gubics Flórián',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'men'
-        },
-        {
-          name: 'Papp Márk',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'men'
-        },
-        {
-          name: 'Krajcsik Dóra',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'women'
-        },
-        {
-          name: 'Stiaszni Alexandra',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'women'
-        },
-        {
-          name: 'Buzás Szilárd',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'men'
-        },
-        {
-          name: 'Dénes András',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'men'
-        },
-        {
-          name: 'Dobosi Gábor',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'men'
-        }
-      ],
-      seniorMembers: [
-        {
-          name: 'Ladányi László',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'men'
-        },
-        {
-          name: 'Horváth András Zsolt',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'men'
-        },
-        {
-          name: 'Lipka Barbara',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'women'
-        },
-        {
-          name: 'Magyar Zoltán',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'men'
-        },
-        {
-          name: 'Fodor József Felicián',
-          present: false,
-          img: 'https://randomuser.me/api/portraits/',
-          gender: 'men'
-        }
-      ]
     }
   },
+  computed: {
+    ...mapGetters(['KBMembers', 'isAllKBMembersChecked', 'seniorMembers', 'isAllSeniorMembersChecked'])
+  },
   methods: {
-    onCheckAllKBMemmbers () {
-      this.checkAllKBMembers = !this.checkAllKBMembers
-      this.kbMembers.forEach(element => {
-        element.present = this.checkAllKBMembers
-      })
+    onCheckAllKBMembers () {
+      this.$store.commit('checkAllKBMembers')
     },
-    onCheckAllSeniorMemmbers () {
-      this.checkAllSeniorMemmbers = !this.checkAllSeniorMemmbers
-      this.seniorMembers.forEach(element => {
-        element.present = this.checkAllSeniorMemmbers
-      })
+    onCheckAllSeniorMembers () {
+      this.$store.commit('checkAllSeniorMembers')
     }
   }
 }
