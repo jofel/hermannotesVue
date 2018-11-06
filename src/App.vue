@@ -15,14 +15,12 @@
           v-for="(item, i) in items"
           :key="i"
         >
-          <btn @click="onItem(item)">
             <v-list-tile-action>
               <v-icon v-html="item.icon"></v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title v-text="item.title"></v-list-tile-title>
             </v-list-tile-content>
-          </btn>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -84,27 +82,33 @@ export default {
       drawer: true,
       fixed: false,
       items: [
-        { icon: 'people',
+        {
+          icon: 'people',
           title: 'Jelenlévők',
           route: 'jelenlevok'
         },
-        { icon: 'today',
+        {
+          icon: 'today',
           title: 'Programok',
           route: 'programok'
         },
-        { icon: 'description',
+        {
+          icon: 'description',
           title: 'Kérvények',
           route: 'kervenyek'
         },
-        { icon: 'add_box',
+        {
+          icon: 'add_box',
           title: 'Egyéb',
           route: 'egyeb'
         },
-        { icon: 'next_week',
+        {
+          icon: 'next_week',
           title: 'Következő ülés',
           route: 'kovetkezo'
         },
-        { icon: 'send',
+        {
+          icon: 'send',
           title: 'Exportálás',
           route: 'exportalas'
         }
@@ -113,6 +117,11 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Herman Notesz'
+    }
+  },
+  methods: {
+    onItem: function (item) {
+      // this.$router.push(item.route)
     }
   },
   name: 'App'

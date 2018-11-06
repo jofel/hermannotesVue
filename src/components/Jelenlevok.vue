@@ -40,7 +40,7 @@
             
           <v-card-text>
              <v-layout xs2 justify-start row wrap>
-                <v-flex xs12 sm6 md4 lg3 v-for="(member, index) in kbMembers" :index="index" :key="member">
+                <v-flex xs12 sm6 md4 lg3 v-for="(member, index) in kbMembers" :index="index" :key="member.name">
                   <v-chip :class="[{'blue-grey lighten-4': member.present},{'grey lighten-1': !member.present}]"  @click="member.present = !member.present">
                     <v-avatar>
                       <v-img 
@@ -85,7 +85,7 @@
 
           <v-card-text>
             <v-layout xs2 justify-start row wrap>
-              <v-layout xs12 sm6 md4 lg3 v-for="(member, index) in seniorMembers" v-bind:key="member">
+              <v-layout xs12 sm6 md4 lg3 v-for="(member, index) in seniorMembers" :key="member.name">
                 <v-flex>
                   <v-chip :class="[{'blue-grey lighten-4': member.present},{'grey lighten-1': !member.present}]" @click="member.present = !member.present">
                     <v-avatar>
@@ -132,79 +132,93 @@ export default {
       checkAllKBMembers: false,
       checkAllSeniorMemmbers: false,
       kbMembers: [
-        { name: 'Gubics Flórián',
+        {
+          name: 'Gubics Flórián',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'men'
         },
-        { name: 'Papp Márk',
+        {
+          name: 'Papp Márk',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'men'
         },
-        { name: 'Krajcsik Dóra',
+        {
+          name: 'Krajcsik Dóra',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'women'
         },
-        { name: 'Stiaszni Alexandra',
+        {
+          name: 'Stiaszni Alexandra',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'women'
         },
-        { name: 'Buzás Szilárd',
+        {
+          name: 'Buzás Szilárd',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'men'
         },
-        { name: 'Dénes András',
+        {
+          name: 'Dénes András',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'men'
         },
-        { name: 'Dobosi Gábor',
+        {
+          name: 'Dobosi Gábor',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'men'
-        }],
+        }
+      ],
       seniorMembers: [
-        { name: 'Ladányi László',
+        {
+          name: 'Ladányi László',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'men'
         },
-        { name: 'Horváth András Zsolt',
+        {
+          name: 'Horváth András Zsolt',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'men'
         },
-        { name: 'Lipka Barbara',
+        {
+          name: 'Lipka Barbara',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'women'
         },
-        { name: 'Magyar Zoltán',
+        {
+          name: 'Magyar Zoltán',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'men'
         },
-        { name: 'Fodor József Felicián',
+        {
+          name: 'Fodor József Felicián',
           present: false,
           img: 'https://randomuser.me/api/portraits/',
           gender: 'men'
-        }]
+        }
+      ]
     }
   },
   methods: {
     onCheckAllKBMemmbers () {
       this.checkAllKBMembers = !this.checkAllKBMembers
-      this.kbMembers.forEach((element) => {
+      this.kbMembers.forEach(element => {
         element.present = this.checkAllKBMembers
       })
     },
     onCheckAllSeniorMemmbers () {
       this.checkAllSeniorMemmbers = !this.checkAllSeniorMemmbers
-      this.seniorMembers.forEach((element) => {
+      this.seniorMembers.forEach(element => {
         element.present = this.checkAllSeniorMemmbers
       })
     }

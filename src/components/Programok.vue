@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 <template>
   <v-card flat>
     <v-toolbar
@@ -19,7 +21,8 @@
         bottom
         right=""
         fab
-      ><v-icon>done</v-icon></v-btn>
+        
+      ><v-icon v-on:click="todo()">done</v-icon></v-btn>
     </v-toolbar>
 
     <v-layout row pb-2>
@@ -30,10 +33,10 @@
       :rotate="-90"
       :size="60"
       :width="5"
-      :value="valueDeterminate"
+      :value="programs[0].procent"
       color="primary"
     >
-      {{ valueDeterminate }}
+      {{ programs[0].procent }}
     </v-progress-circular>
 
             <v-toolbar-title class="body-2 grey--text">Halloween-i Teaház
@@ -50,84 +53,108 @@
           <v-divider></v-divider>
             
           <v-card-text>
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-select
-                v-model="select"
-                :items = "kbMembers"
-                item-value = "name"
-                item-text = "name"
-                id="name"
-                :rules="[v => !!v || 'Item is required']"
-                :item-avatar="kbMembers.img"
-                label="Főszervező"
-                required
-              ></v-select>
-              <v-layout align-end row wrap>
-                <v-flex xs12 sm12 md8 lg8 >
+            <v-form ref="form">
+              <v-container fluid grid-list-xl>
+                <v-layout row wrap ustify-space-between>
+                  <v-flex xs6 sm6 md3 lg3>
+                    <v-select
+                      v-model="programs[0].owner"
+                      :items = "kbMembers"
+                      item-value = "name"
+                      item-text = "name"
+                      id="name"
+                      :rules="[v => !!v || 'Item is required']"
+                      :item-avatar="kbMembers.img"
+                      label="Főszervező"
+                      required
+                    ></v-select>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+              <v-container fluid grid-list-xl>
+                <v-layout align-end row wrap ustify-space-between> 
+                  <v-flex xs12 sm12 md10 lg10 >
                   <v-textarea
-                    v-model="startText"
-                    :rules="nameRules"
+                    v-model="programs[0].startText"
                     :counter="250"
                     label="Leírás"
-                    rows = "2"
+                    rows = "1"
                     auto-grow
                     required
                   ></v-textarea>
                 </v-flex>
-                <v-flex xs12 sm12 md4 lg4>
-                  <v-text-field align-start
-                    v-model="name"
-                    :rules="nameRules"
-                    :counter="10"
-                    label="Támogatás"
-                    required
-                  ></v-text-field>
-                  <v-layout >
+                <v-flex xs12 sm12 md2 lg2>
                     <v-text-field 
-                      v-model="name"
-                      :rules="nameRules"
+                      v-model="programs[0].startCost"
                       :counter="10"
-                      label="Támogatás"
+                      label="Kért támogatás"
                       required
                     ></v-text-field>
-                  </v-layout>
                 </v-flex>
               </v-layout>
-              <v-textarea
-                v-model="progressText"
-                :rules="emailRules"
-                label="Döntés"
-                rows = "2"
-                auto-grow
-                required
-              ></v-textarea>
-              <v-textarea
-                placeholder=""
-                v-model="closeText"
-                :rules="emailRules"
-                label="Beszámoló"
-                rows = "2"
-                auto-grow
-                required
-              ></v-textarea>
+              </v-container>
+              <v-container fluid grid-list-xl>
+                <v-layout align-end row wrap ustify-space-between> 
+                  <v-flex xs12 sm12 md10 lg10 >
+                  <v-textarea
+                    v-model="programs[0].progressText"
+                    :counter="250"
+                    label="Döntés"
+                    rows = "1"
+                    auto-grow
+                    box
+                    required
+                  ></v-textarea>
+                </v-flex>
+                <v-flex xs12 sm12 md2 lg2>
+                    <v-text-field 
+                      v-model="programs[0].progressCost"
+                      :counter="10"
+                      label="Kapott támogatás"
+                      box
+                      required
+                    ></v-text-field>
+                </v-flex>
+              </v-layout>
+              </v-container>
+              <v-container fluid grid-list-xl>
+                <v-layout align-end row wrap ustify-space-between> 
+                  <v-flex xs12 sm12 md10 lg10 >
+                    <v-textarea
+                      v-model="programs[0].closeText"
+                      :counter="250"
+                      label="Beszámoló"
+                      rows = "1"
+                      auto-grow
+                      required
+                    ></v-textarea>
+                  </v-flex>
+                  <v-flex xs12 sm12 md2 lg2>
+                      <v-text-field 
+                        v-model="programs[0].closeCost"
+                        :counter="10"
+                        label="Összes költség"
+                        required
+                      ></v-text-field>
+                  </v-flex>
+                </v-layout>
+               </v-container>
               <!-- <v-checkbox
                 v-model="checkbox"
                 label="Személyi kérdés?"
                 required
               ></v-checkbox> -->
 
-              <v-layout row>
+              <v-layout row ustify-space-between>
                 <v-flex xs-6>
                   <v-btn xs12 sm12 md8 lg8
-                    :disabled="!valid"
-                    @click="submit"
                   >
                     Mentés
                   </v-btn>
                 </v-flex>
-                <v-flex xs-6>
+                <v-flex xs-6 offset-lg6>
                   <v-btn xs12 sm12 md8 lg8
-                    @click="clear"
+                    
                   >
                     Törlés
                   </v-btn>
@@ -159,17 +186,67 @@
 }
 </style>
 
+
 <script>
 export default {
   data () {
     return {
-      startText: 'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
+      startText:
+        'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
       startCost: 5000,
-      progressText: 'A rendezvényt egyhangúan támogatja a bizottság, azon kitétellel, hogy külsősöknek becsület kassza legyen kihelyeze a rendezvény során.',
+
       progressCost: 4500,
-      closeText: 'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
+      closeText:
+        'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
       closeCost: 4000,
       valueDeterminate: 50,
+      programs: [
+        {
+          owner: 'Gubics Flórián',
+          name: 'Halloween-i Teaház',
+          date: '2018.11.01.',
+          procent: 50,
+          startText:
+            'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
+          startCost: 5000,
+          progressText:
+            'A rendezvényt egyhangúan támogatja a bizottság, azon kitétellel, hogy külsősöknek becsület kassza legyen kihelyeze a rendezvény során.',
+          progressCost: 4500,
+          closeText:
+            'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
+          closeCost: 4000
+        },
+        {
+          owner: 'Krajcsik Dóra',
+          name: 'Kolibuli',
+          date: '2018.12.01.',
+          procent: 60,
+          startText:
+            'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
+          startCost: 5000,
+          progressText:
+            'A rendezvényt egyhangúan támogatja a bizottság, azon kitétellel, hogy külsősöknek becsület kassza legyen kihelyeze a rendezvény során.',
+          progressCost: 4500,
+          closeText:
+            'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
+          closeCost: 4000
+        },
+        {
+          owner: 'Papp Márk',
+          name: 'Herman ősz',
+          date: '2018.11.20.',
+          procent: 10,
+          startText:
+            'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
+          startCost: 5000,
+          progressText:
+            'A rendezvényt egyhangúan támogatja a bizottság, azon kitétellel, hogy külsősöknek becsület kassza legyen kihelyeze a rendezvény során.',
+          progressCost: 4500,
+          closeText:
+            'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
+          closeCost: 4000
+        }
+      ],
       kbMembers: [
         {
           name: 'Gubics Flórián',
@@ -214,6 +291,12 @@ export default {
           gender: 'men'
         }
       ]
+    }
+  },
+  methods: {
+    todo () {
+      console.log('Todo...')
+      alert('TODO...')
     }
   }
 }
