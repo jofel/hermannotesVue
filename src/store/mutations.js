@@ -14,5 +14,14 @@ export default {
         user.present = state.isAllSeniorMembersChecked
       }
     })
+  },
+  addNewProgram (state, payload) {
+    // TODO id...
+    payload.id = state.programs.length
+
+    state.programs.push(payload)
+  },
+  updateProgram (state, payload) {
+    state.programs[payload.id] = payload
   }
 }

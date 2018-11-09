@@ -15,8 +15,8 @@
           v-for="(item, i) in items"
           :key="i"
         >
-            <v-list-tile-action>
-              <v-icon v-html="item.icon"></v-icon>
+            <v-list-tile-action >
+              <v-icon v-html="item.icon" @click="onItem(item)"></v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title v-text="item.title"></v-list-tile-title>
@@ -82,36 +82,12 @@ export default {
       drawer: true,
       fixed: false,
       items: [
-        {
-          icon: 'people',
-          title: 'Jelenlévők',
-          route: 'jelenlevok'
-        },
-        {
-          icon: 'today',
-          title: 'Programok',
-          route: 'programok'
-        },
-        {
-          icon: 'description',
-          title: 'Kérvények',
-          route: 'kervenyek'
-        },
-        {
-          icon: 'add_box',
-          title: 'Egyéb',
-          route: 'egyeb'
-        },
-        {
-          icon: 'next_week',
-          title: 'Következő ülés',
-          route: 'kovetkezo'
-        },
-        {
-          icon: 'send',
-          title: 'Exportálás',
-          route: 'exportalas'
-        }
+        { icon: 'people', title: 'Jelenlévők', route: 'jelenlevok' },
+        { icon: 'today', title: 'Programok', route: 'program' },
+        { icon: 'description', title: 'Kérvények', route: 'kervenyek' },
+        { icon: 'add_box', title: 'Egyéb', route: 'egyeb' },
+        { icon: 'next_week', title: 'Következő ülés', route: 'kovetkezo' },
+        { icon: 'send', title: 'Exportálás', route: 'exportalas' }
       ],
       miniVariant: true,
       right: true,
@@ -121,7 +97,7 @@ export default {
   },
   methods: {
     onItem: function (item) {
-      // this.$router.push(item.route)
+      this.$router.push(item.route)
     }
   },
   name: 'App'

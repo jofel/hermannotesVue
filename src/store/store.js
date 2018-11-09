@@ -27,6 +27,45 @@ export const store = new Vuex.Store({
       { name: 'Lipka Barbara', present: false, status: 'senior', img: imgURL, gender: 'women'},
       { name: 'Magyar Zoltán', present: false, status: 'senior', img: imgURL, gender: 'men'},
       { name: 'Fodor József Felicián', present: false, status: 'senior', img: imgURL, gender: 'men'}
+    ],
+    programs: [
+      { id: 0, owner: '', name: '', date: '', procent: 0,
+        startText: '', startCost: 0,
+        progressText: 'A bizottság a rendezvényt egyhangúan támogatja.', progressCost: 0,
+        closeText: 'A rendezvényen X fő jelent meg. A költségvetést csatoltuk.', closeCost: 0 },
+      { id: 1, owner: 'Gubics Flórián', name: 'Halloween-i Teaház', date: '2018.11.01.', procent: 10,
+        startText:
+          'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
+        startCost: 1000,
+        progressText:
+          'A rendezvényt egyhangúan támogatja a bizottság, azon kitétellel, hogy külsősöknek becsület kassza legyen kihelyeze a rendezvény során.',
+        progressCost: 1500,
+        closeText:
+          'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
+        closeCost: 1000
+      },
+      { id: 2, owner: 'Krajcsik Dóra', name: 'Kolibuli', date: '2018.12.01.', procent: 20,
+        startText:
+          'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
+        startCost: 2000,
+        progressText:
+          'A rendezvényt egyhangúan támogatja a bizottság, azon kitétellel, hogy külsősöknek becsület kassza legyen kihelyeze a rendezvény során.',
+        progressCost: 2500,
+        closeText:
+          'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
+        closeCost: 2000
+      },
+      { id: 3, owner: 'Papp Márk', name: 'Herman ősz', date: '2018.11.20.', procent: 30,
+        startText:
+          'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
+        startCost: 3000,
+        progressText:
+          'A rendezvényt egyhangúan támogatja a bizottság, azon kitétellel, hogy külsősöknek becsület kassza legyen kihelyeze a rendezvény során.',
+        progressCost: 3500,
+        closeText:
+          'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
+        closeCost: 3000
+      }
     ]
   },
   getters,

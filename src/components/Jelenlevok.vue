@@ -40,7 +40,7 @@
             
           <v-card-text>
              <v-layout xs2 justify-start row wrap>
-                <v-flex xs12 sm6 md4 lg3 v-for="(member, index) in KBMembers" :index="index" :key="member.name">
+                <v-flex xs12 sm6 md4 lg3 v-for="(member, index) in kbMembers" :index="index" :key="member.name">
                   <v-chip :class="[{'blue-grey lighten-4': member.present},{'grey lighten-1': !member.present}]"  @click="member.present = !member.present">
                     <v-avatar>
                       <v-img 
@@ -131,7 +131,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['KBMembers', 'isAllKBMembersChecked', 'seniorMembers', 'isAllSeniorMembersChecked'])
+    ...mapGetters(['kbMembers', 'isAllKBMembersChecked', 'seniorMembers', 'isAllSeniorMembersChecked'])
   },
   methods: {
     onCheckAllKBMembers () {

@@ -5,7 +5,7 @@ export default {
   isAllSeniorMembersChecked (state) {
     return state.isAllSeniorMembersChecked
   },
-  KBMembers (state) {
+  kbMembers (state) {
     return state.users.filter(user => {
       return user.status === 'KB'
     })
@@ -14,5 +14,8 @@ export default {
     return state.users.filter(user => {
       return user.status === 'senior'
     })
+  },
+  programs (state) {
+    return state.programs
   }
 }
