@@ -30,7 +30,7 @@ import { mapGetters } from 'vuex';
     <v-layout row v-for="(program, index) in programs" :key=program.id>
       <v-flex xs8 offset-xs2>
         <router-view></router-view>
-        <v-card v-if="index != 0" :class="[{'card--flex-toolbar' : index === 1},{'mb-5' : true}]">
+        <v-card :class="[{'card--flex-toolbar' : index === 0},{'mb-5' : true}]">
           <v-toolbar color="grey lighten-3" card prominent>
             <v-progress-circular
               :rotate="-90"
@@ -48,7 +48,7 @@ import { mapGetters } from 'vuex';
               <v-icon>done</v-icon>
             </v-btn> -->
              <v-speed-dial
-            v-model="fab[index]"
+            v-model="program.menu"
             bottom
             right
             direction = "left"
@@ -59,8 +59,8 @@ import { mapGetters } from 'vuex';
           >
             <v-btn
               slot="activator"
-              v-model="fab[index]"
-              color="blue darken-2"
+              v-model="program.menu"
+              color="grey"
               dark
               fab
             >
@@ -89,6 +89,7 @@ import { mapGetters } from 'vuex';
               dark
               small
               color="red"
+              @click="onDelete(program.id)"
             >
               <v-icon>delete</v-icon>
             </v-btn>
@@ -96,7 +97,74 @@ import { mapGetters } from 'vuex';
           </v-toolbar>
           <v-divider></v-divider>                               
           <v-card-text>
-            <h2> {{ program.id }}</h2>
+             <v-stepper v-model="program.procent">
+              <v-stepper-header>
+                <v-stepper-step :complete="program.procent > 10" step="10">Igényfelmérés</v-stepper-step>
+
+                <v-divider></v-divider>
+
+                <v-stepper-step :complete="program.procent > 20" step="20">Szervezők keresése</v-stepper-step>
+
+                <v-divider></v-divider>
+
+                <v-stepper-step step="3">Hirdetés</v-stepper-step>
+              </v-stepper-header>
+
+              <v-stepper-items>
+                <v-stepper-content step="10">
+                  <v-card
+                    class="mb-5"
+                    color="grey lighten-1"
+                    height="200px"
+                  >
+                  Résztvevők várható száma:
+                  </v-card>
+
+                  <v-btn
+                    color="primary"
+                    @click="program.procent += 10"
+                  >
+                    Continue
+                  </v-btn>
+
+                  <v-btn flat>Cancel</v-btn>
+                </v-stepper-content>
+
+                <v-stepper-content step="20">
+                  <v-card
+                    class="mb-5"
+                    color="grey lighten-1"
+                    height="200px"
+                  ></v-card>
+
+                  <v-btn
+                    color="primary"
+                    @click="program.procent += 10"
+                  >
+                    Continue 2
+                  </v-btn>
+
+                  <v-btn flat>Cancel</v-btn>
+                </v-stepper-content>
+
+                <v-stepper-content step="30">
+                  <v-card
+                    class="mb-5"
+                    color="grey lighten-1"
+                    height="200px"
+                  ></v-card>
+
+                  <v-btn
+                    color="primary"
+                    @click="program.procent += 10"
+                  >
+                    Continue 3
+                  </v-btn>
+
+                  <v-btn flat>Cancel</v-btn>
+                </v-stepper-content>
+              </v-stepper-items>
+            </v-stepper>
           </v-card-text>
             <!-- <v-btn
               color="pink"
@@ -129,7 +197,7 @@ import { mapGetters } from 'vuex';
     </v-layout>
     
     <v-btn
-      color="pink"
+      color="teal"
       large
       dark
       fixed
@@ -159,7 +227,8 @@ export default {
     return {
       activeDialog: 0,
       dialog: false,
-      fab: false
+      fab: false,
+      currentStep: 0
     }
   },
   methods: {
@@ -176,6 +245,12 @@ export default {
     },
     onEdit (program) {
       this.$router.push('program/' + program.id)
+    },
+    onDelete (id) {
+      const r = confirm('Biztosan törli a kiválasztott elmeet?')
+      if (r === true) {
+        this.$store.commit('deleteProgram', id)
+      }
     },
     addNewProgram (program) {
       this.$store.commit('addNewProgram', program)

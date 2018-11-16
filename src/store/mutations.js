@@ -23,5 +23,12 @@ export default {
   },
   updateProgram (state, payload) {
     state.programs[payload.id] = payload
+  },
+  deleteProgram (state, payload) {
+    state.programs.forEach(element => {
+      if (element.id === payload) {
+        state.programs.splice(element.id, 1)
+      }
+    })
   }
 }

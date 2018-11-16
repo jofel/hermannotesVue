@@ -29,11 +29,7 @@ export const store = new Vuex.Store({
       { name: 'Fodor József Felicián', present: false, status: 'senior', img: imgURL, gender: 'men'}
     ],
     programs: [
-      { id: 0, owner: '', name: '', date: '', procent: 0,
-        startText: '', startCost: 0,
-        progressText: 'A bizottság a rendezvényt egyhangúan támogatja.', progressCost: 0,
-        closeText: 'A rendezvényen X fő jelent meg. A költségvetést csatoltuk.', closeCost: 0 },
-      { id: 1, owner: 'Gubics Flórián', name: 'Halloween-i Teaház', date: '2018.11.01.', procent: 10,
+      { id: 0, owner: 'Gubics Flórián', name: 'Halloween-i Teaház', date: '2018.11.01.', procent: 10,
         startText:
           'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
         startCost: 1000,
@@ -42,9 +38,10 @@ export const store = new Vuex.Store({
         progressCost: 1500,
         closeText:
           'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
-        closeCost: 1000
+        closeCost: 1000,
+        menu: false
       },
-      { id: 2, owner: 'Krajcsik Dóra', name: 'Kolibuli', date: '2018.12.01.', procent: 20,
+      { id: 1, owner: 'Krajcsik Dóra', name: 'Kolibuli', date: '2018.12.01.', procent: 20,
         startText:
           'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
         startCost: 2000,
@@ -53,9 +50,10 @@ export const store = new Vuex.Store({
         progressCost: 2500,
         closeText:
           'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
-        closeCost: 2000
+        closeCost: 2000,
+        menu: false
       },
-      { id: 3, owner: 'Papp Márk', name: 'Herman ősz', date: '2018.11.20.', procent: 30,
+      { id: 2, owner: 'Papp Márk', name: 'Herman ősz', date: '2018.11.20.', procent: 30,
         startText:
           'Teaház megszervezésére szeretnénk támogatást kérni a bizottságtól. Ezen az alkalmon zöldhagymát is felszolgálnánk, így a költségek 500 Ft-al növekednek. Ezen kívül cukor elfogyott, és 2 csomag teafiltert is vásárolni kell az estére.',
         startCost: 3000,
@@ -64,7 +62,8 @@ export const store = new Vuex.Store({
         progressCost: 3500,
         closeText:
           'Sikeres rendezvényen vagyunk túl. Teltház volt, éjfél után is bőven voltak még. A becsületkasszába 1000 Ft folyt be.',
-        closeCost: 3000
+        closeCost: 3000,
+        menu: false
       }
     ]
   },
