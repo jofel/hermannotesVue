@@ -17,7 +17,7 @@ export default {
   },
   addNewProgram (state, payload) {
     // TODO id...
-    payload.id = state.programs.length
+    // payload.id = state.programs.length
 
     state.programs.push(payload)
   },
@@ -30,5 +30,20 @@ export default {
         state.programs.splice(element.id, 1)
       }
     })
+  },
+  setUser (state, payload) {
+    state.user = payload
+  },
+  setLoading (state, payload) {
+    state.loading = payload
+  },
+  setError (state, payload) {
+    state.error = payload
+  },
+  clearError (state) {
+    state.error = null
+  },
+  setLoadedPrograms (state, payload) {
+    state.programs = payload
   }
 }

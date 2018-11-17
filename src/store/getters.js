@@ -17,5 +17,26 @@ export default {
   },
   programs (state) {
     return state.programs
+  },
+  // program (state) {
+  //   return state.programs.find(program => {
+  //     return program.id === programId
+  //   })
+  // },
+  program (state) {
+    return (programId) => {
+      return state.programs.find((program) => {
+        return program.id === programId
+      })
+    }
+  },
+  user (state) {
+    return state.user
+  },
+  loading (state) {
+    return state.loading
+  },
+  error (state) {
+    return state.error
   }
 }

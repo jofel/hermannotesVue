@@ -15,7 +15,7 @@
             <v-layout row wrap ustify-space-between>
               <v-flex xs6 sm6 md3 lg3>
                 <v-select
-                  v-model="programs[id].owner"
+                  v-model="program.owner"
                   :items = "kbMembers"
                   item-value = "name"
                   item-text = "name"
@@ -31,7 +31,7 @@
             <v-layout align-end row wrap ustify-space-between> 
               <v-flex xs12 sm12 md10 lg10 >
               <v-textarea
-                v-model="programs[id].startText"
+                v-model="program.startText"
                 :counter="250"
                 label="Leírás"
                 rows = "1"
@@ -41,7 +41,7 @@
             </v-flex>
             <v-flex xs12 sm12 md2 lg2>
                 <v-text-field 
-                  v-model="programs[id].startCost"
+                  v-model="program.startCost"
                   :counter="10"
                   label="Kért támogatás"
                   required
@@ -53,7 +53,7 @@
             <v-layout align-end row wrap ustify-space-between> 
               <v-flex xs12 sm12 md10 lg10 >
               <v-textarea
-                v-model="programs[id].progressText"
+                v-model="program.progressText"
                 :counter="250"
                 label="Döntés"
                 rows = "1"
@@ -64,7 +64,7 @@
             </v-flex>
             <v-flex xs12 sm12 md2 lg2>
                 <v-text-field 
-                  v-model="programs[id].progressCost"
+                  v-model="program.progressCost"
                   :counter="10"
                   label="Kapott támogatás"
                   box
@@ -77,7 +77,7 @@
             <v-layout align-end row wrap ustify-space-between> 
               <v-flex xs12 sm12 md10 lg10 >
                 <v-textarea
-                  v-model="programs[id].closeText"
+                  v-model="program.closeText"
                   :counter="250"
                   label="Beszámoló"
                   rows = "1"
@@ -87,7 +87,7 @@
               </v-flex>
               <v-flex xs12 sm12 md2 lg2>
                   <v-text-field 
-                    v-model="programs[id].closeCost"
+                    v-model="program.closeCost"
                     :counter="10"
                     label="Összes költség"
                     required
@@ -125,37 +125,37 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  props: ['id'],
   data () {
     return {
-      dialog: true,
-      id: this.$route.params.id,
-      program: {
-        // id: this.programs[this.id].id,
-        // owner: this.programs[this.$route.params.id].owner,
-        // name: this.programs[this.$route.params.id].name,
-        // date: this.programs[this.$route.params.id].date,
-        // id: this.id,
-        owner: '',
-        name: '',
-        date: '',
-        procent: 0,
-        startText: '',
-        startCost: 0,
-        progressText: 'A bizottság a rendezvényt egyhangúan támogatja.',
-        progressCost: 0,
-        closeText: 'A rendezvényen X fő jelent meg. A költségvetést csatoltuk.',
-        closeCost: 0
-      }
+      dialog: true
     }
   },
   methods: {
     updateProgram (program) {
-      this.$store.commit('updateProgram', this.programs[this.id])
+      this.$store.commit('updateProgram', program)
       this.$router.replace('/program')
     }
   },
   computed: {
-    ...mapGetters(['kbMembers', 'programs'])
+    ...mapGetters(['kbMembers', 'programs']),
+    program () {
+      return this.$store.getters.programs.find((program) => {
+        if (program.id === this.id) {
+          return program
+        }
+      })
+    }
   }
+  // beforeCreate: {
+  //   setProgram () {
+  //     console.log('before created')
+  //     this.program = this.$store.getters.programs.find((program) => {
+  //       if (program.id === this.id) {
+  //         return program
+  //       }
+  //     })
+  //   }
+  // }
 }
 </script>

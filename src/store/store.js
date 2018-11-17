@@ -6,6 +6,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import getters from './getters'
 import mutations from './mutations'
+import actions from './actions'
 
 Vue.use(Vuex)
 const imgURL = 'https://randomuser.me/api/portraits/'
@@ -14,6 +15,9 @@ export const store = new Vuex.Store({
   state: {
     isAllKBMembersChecked: false,
     isAllSeniorMembersChecked: false,
+    user: null,
+    error: null,
+    loading: false,
     users: [
       { name: 'Gubics Flórián', present: false, status: 'KB', img: imgURL, gender: 'men' },
       { name: 'Papp Márk', present: false, status: 'KB', img: imgURL, gender: 'men' },
@@ -68,5 +72,6 @@ export const store = new Vuex.Store({
     ]
   },
   getters,
-  mutations
+  mutations,
+  actions
 })

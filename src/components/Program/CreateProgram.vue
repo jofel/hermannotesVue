@@ -147,7 +147,7 @@ export default {
   },
   methods: {
     addNewProgram (program) {
-      this.$store.commit('addNewProgram', program)
+      this.$store.dispatch('addNewProgram', program)
       this.$router.replace('/program')
     }
   },

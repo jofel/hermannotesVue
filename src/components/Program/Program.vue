@@ -72,7 +72,7 @@ import { mapGetters } from 'vuex';
               dark
               small
               color="blue"
-              @click="onEdit(program)"
+              @click="onEdit(program.id)"
             >
               <v-icon>edit</v-icon>
             </v-btn>
@@ -97,7 +97,8 @@ import { mapGetters } from 'vuex';
           </v-toolbar>
           <v-divider></v-divider>                               
           <v-card-text>
-             <v-stepper v-model="program.procent">
+            {{ program.startText }}
+             <!-- <v-stepper v-model="program.procent">
               <v-stepper-header>
                 <v-stepper-step :complete="program.procent > 10" step="10">Igényfelmérés</v-stepper-step>
 
@@ -164,33 +165,8 @@ import { mapGetters } from 'vuex';
                   <v-btn flat>Cancel</v-btn>
                 </v-stepper-content>
               </v-stepper-items>
-            </v-stepper>
+            </v-stepper> -->
           </v-card-text>
-            <!-- <v-btn
-              color="pink"
-              small
-              dark
-              absolute
-              bottom
-              right
-              fab
-              to="/program/new"
-            >
-              <v-icon>add</v-icon>
-            </v-btn> -->
-
-            <!-- <v-btn
-              color="blue"
-              dark
-              absolute
-              bottom
-              right=""
-              fab
-              @click="onEdit(program)"
-            >
-              <v-icon>edit</v-icon>
-            </v-btn> -->
-         
 
         </v-card>
       </v-flex>
@@ -243,8 +219,8 @@ export default {
       this.activeDialog = 0
       this.dialog = true
     },
-    onEdit (program) {
-      this.$router.push('program/' + program.id)
+    onEdit (id) {
+      this.$router.push('program/' + id)
     },
     onDelete (id) {
       const r = confirm('Biztosan törli a kiválasztott elmeet?')
