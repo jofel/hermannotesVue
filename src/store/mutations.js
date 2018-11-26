@@ -27,7 +27,23 @@ export default {
   deleteProgram (state, payload) {
     state.programs.forEach(element => {
       if (element.id === payload) {
-        state.programs.splice(element.id, 1)
+        state.programs.splice(payload, 1)
+      }
+    })
+  },
+  editProgram (state, payload) {
+    state.programs.forEach(element => {
+      if (element.id === payload.id) {
+        element.owner = payload.owner
+        element.name = payload.name
+        element.date = payload.date
+        element.procent = payload.procent
+        element.startText = payload.startText
+        element.startCost = payload.startCost
+        element.progressText = payload.progressText
+        element.progressCost = payload.progressCost
+        element.closeText = payload.closeText
+        element.closeCost = payload.closeCost
       }
     })
   },

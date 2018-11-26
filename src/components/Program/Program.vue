@@ -225,7 +225,7 @@ export default {
     onDelete (id) {
       const r = confirm('Biztosan törli a kiválasztott elmeet?')
       if (r === true) {
-        this.$store.commit('deleteProgram', id)
+        this.$store.dispatch('deleteProgram', id)
       }
     },
     addNewProgram (program) {

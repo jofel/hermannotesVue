@@ -14,6 +14,15 @@
           <v-container fluid grid-list-xl>
             <v-layout row wrap ustify-space-between>
               <v-flex xs6 sm6 md3 lg3>
+                <v-text-field
+                  v-model="program.name"
+                  id="programName"
+                  :rules="[v => !!v || 'Item is required']"
+                  label="Program neve"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs6 sm6 md3 lg3>
                 <v-select
                   v-model="program.owner"
                   :items = "kbMembers"
@@ -133,7 +142,7 @@ export default {
   },
   methods: {
     updateProgram (program) {
-      this.$store.commit('updateProgram', program)
+      this.$store.dispatch('editProgram', program)
       this.$router.replace('/program')
     }
   },
