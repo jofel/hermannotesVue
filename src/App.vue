@@ -16,7 +16,9 @@
           :key="i"
         >
             <v-list-tile-action >
-              <v-icon v-html="item.icon" @click="onItem(item)"></v-icon>
+              <span class="group pa-2 active">
+                <v-icon :x-large="activeSubMenu == item.route" v-html="item.icon" @click="onItem(item)"></v-icon>
+              </span>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title v-text="item.title"></v-list-tile-title>
@@ -42,7 +44,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items v-for="item in menuItems" :key="item.title" class="hidden-sm-and-down">
         <v-btn flat :to="item.link">
-          <v-icon dark>{{item.icon}}</v-icon> {{item.title}}
+          <v-icon>{{item.icon}}</v-icon> {{item.title}}
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -77,6 +79,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      activeSubMenu: 'null',
       clipped: true,
       drawer: true,
       fixed: false,
@@ -117,6 +120,7 @@ export default {
   },
   methods: {
     onItem: function (item) {
+      this.activeSubMenu = item.route
       this.$router.push(item.route)
     }
   },
