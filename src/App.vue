@@ -42,7 +42,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items v-for="item in menuItems" :key="item.title" class="hidden-sm-and-down">
         <v-btn flat :to="item.link">
-          <v-icon>{{item.icon}}</v-icon> {{item.title}}
+          <v-icon dark>{{item.icon}}</v-icon> {{item.title}}
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
