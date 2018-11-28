@@ -2,6 +2,23 @@ import firebase from 'firebase'
 
 export default {
   addNewProgram ({ commit }, payload) {
+    if (payload.startText !== undefined && payload.startText.length !== 0) {
+      payload.procent += 20
+    } if (payload.startCost !== undefined && payload.startCost > 0) {
+      payload.procent += 10
+    }
+    if (payload.progressText !== undefined && payload.progressText.length !== 0) {
+      payload.procent += 20
+    } if (payload.progressCost !== undefined && payload.progressCost > 0) {
+      payload.procent += 10
+    }
+    if (payload.closeText !== undefined && payload.closeText.length !== 0) {
+      payload.procent += 20
+    }
+    if (payload.closeCost !== undefined && payload.closeCost > 0) {
+      payload.procent += 10
+    }
+
     const program = {
       owner: payload.owner,
       name: payload.name,
@@ -106,6 +123,23 @@ export default {
     commit('deleteProgram', payload)
   },
   editProgram ({ commit }, payload) {
+    payload.procent = 0
+    if (payload.startText !== undefined && payload.startText.length !== 0) {
+      payload.procent += 20
+    } if (payload.startCost !== undefined && payload.startCost > 0) {
+      payload.procent += 10
+    }
+    if (payload.progressText !== undefined && payload.progressText.length !== 0) {
+      payload.procent += 20
+    } if (payload.progressCost !== undefined && payload.progressCost > 0) {
+      payload.procent += 10
+    }
+    if (payload.closeText !== undefined && payload.closeText.length !== 0) {
+      payload.procent += 20
+    }
+    if (payload.closeCost !== undefined && payload.closeCost > 0) {
+      payload.procent += 10
+    }
     firebase.database().ref('programs/' + payload.id).set({
       id: payload.id,
       owner: payload.owner,

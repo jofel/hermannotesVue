@@ -59,7 +59,7 @@
             </v-flex>
           </v-layout>
           </v-container>
-          <v-container fluid grid-list-xl>
+          <!-- <v-container fluid grid-list-xl>
             <v-layout align-end row wrap ustify-space-between> 
               <v-flex xs12 sm12 md10 lg10 >
               <v-textarea
@@ -104,7 +104,7 @@
                   ></v-text-field>
               </v-flex>
             </v-layout>
-            </v-container>
+            </v-container> -->
           <!-- <v-checkbox
             v-model="checkbox"
             label="Személyi kérdés?"
@@ -147,9 +147,9 @@ export default {
         procent: 0,
         startText: '',
         startCost: 0,
-        progressText: 'A bizottság a rendezvényt egyhangúan támogatja.',
+        progressText: '',
         progressCost: 0,
-        closeText: 'A rendezvényen X fő jelent meg. A költségvetést csatoltuk.',
+        closeText: '',
         closeCost: 0
       }
     }

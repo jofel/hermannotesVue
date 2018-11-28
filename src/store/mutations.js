@@ -25,11 +25,16 @@ export default {
     state.programs[payload.id] = payload
   },
   deleteProgram (state, payload) {
-    state.programs.forEach(element => {
-      if (element.id === payload) {
-        state.programs.splice(payload, 1)
-      }
-    })
+    state.programs.splice(
+      state.programs.findIndex(element => {
+        return element.id === payload
+      }), 1)
+
+    // state.programs.forEach(element => {
+    //   if (element.id === payload) {
+    //     state.programs.splice(payload, 1)
+    //   }
+    // })
   },
   editProgram (state, payload) {
     state.programs.forEach(element => {

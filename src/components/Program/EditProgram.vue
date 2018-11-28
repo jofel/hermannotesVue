@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" persistent max-width="70%">
     <v-card>
       <v-toolbar card prominent color="primary" dark>
-        <v-toolbar-title class="headline grey--white">Program szerkesztése...
+        <v-toolbar-title fixed class="headline grey--white">Program szerkesztése...
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon>
@@ -12,8 +12,8 @@
       <v-card-text>
        <v-form ref="form">
           <v-container fluid grid-list-xl>
-            <v-layout row wrap ustify-space-between>
-              <v-flex xs6 sm6 md3 lg3>
+            <v-layout align-end row wrap ustify-space-between>
+              <v-flex xs12 sm6 md3 lg3>
                 <v-text-field
                   v-model="program.name"
                   id="programName"
@@ -22,7 +22,7 @@
                   required
                 ></v-text-field>
               </v-flex>
-              <v-flex xs6 sm6 md3 lg3>
+              <v-flex xs12 sm6 md3 lg3>
                 <v-select
                   v-model="program.owner"
                   :items = "kbMembers"
@@ -39,24 +39,24 @@
           <v-container fluid grid-list-xl>
             <v-layout align-end row wrap ustify-space-between> 
               <v-flex xs12 sm12 md10 lg10 >
-              <v-textarea
-                v-model="program.startText"
-                :counter="250"
-                label="Leírás"
-                rows = "1"
-                auto-grow
-                required
-              ></v-textarea>
-            </v-flex>
-            <v-flex xs12 sm12 md2 lg2>
+                <v-textarea
+                  v-model="program.startText"
+                  :counter="250"
+                  label="Leírás"
+                  rows = "1"
+                  auto-grow
+                  required
+                ></v-textarea>
+              </v-flex>
+              <v-flex xs12 sm12 md2 lg2>
                 <v-text-field 
                   v-model="program.startCost"
                   :counter="10"
                   label="Kért támogatás"
                   required
                 ></v-text-field>
-            </v-flex>
-          </v-layout>
+              </v-flex>
+            </v-layout>
           </v-container>
           <v-container fluid grid-list-xl>
             <v-layout align-end row wrap ustify-space-between> 
@@ -82,7 +82,7 @@
             </v-flex>
           </v-layout>
           </v-container>
-          <v-container fluid grid-list-xl>
+          <v-container fluid grid-list-xl v-if="program.procent > minCloseProcent">
             <v-layout align-end row wrap ustify-space-between> 
               <v-flex xs12 sm12 md10 lg10 >
                 <v-textarea
@@ -137,7 +137,9 @@ export default {
   props: ['id'],
   data () {
     return {
-      dialog: true
+      dialog: true,
+      minProgressProcent: 30,
+      minCloseProcent: 60
     }
   },
   methods: {
@@ -156,15 +158,5 @@ export default {
       })
     }
   }
-  // beforeCreate: {
-  //   setProgram () {
-  //     console.log('before created')
-  //     this.program = this.$store.getters.programs.find((program) => {
-  //       if (program.id === this.id) {
-  //         return program
-  //       }
-  //     })
-  //   }
-  // }
 }
 </script>
